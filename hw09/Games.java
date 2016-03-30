@@ -11,8 +11,11 @@ public class Games{
     public static void main (String[] args) {
         Scanner myScanner = new Scanner(System.in);
         
+        //Welcomes user to the game program
         System.out.println("Welcome to the Posch Game Center!");
         System.out.print("In order to play a game, enter one of the following[1, 2, or 3]:\n1.Guess the box  2.Spin the Wheel  3.Scrambler\n");
+        
+        //Assigns each game a corresponding integer to play, which then uses a loop that terminates the program if a string is entered
         while (!myScanner.hasNextInt()){
             myScanner.next();
             System.out.println("You have entered invalid input. The arcade does not have that game. Goodbye.");
@@ -20,7 +23,8 @@ public class Games{
         }
         int input = myScanner.nextInt();
         
-        //Control structure to choose which game is played based on user input
+        //Control structure to choose which game is played based on user input, if one of the corresponding game integers, it launches the game
+        //If not, it alerts the user that the arcade doesn't have the game they are looking for and exits program
         if(input == 1){
             guessTheBox();
         }
@@ -75,6 +79,7 @@ public class Games{
     }//End of guessTheBox Method
     
     public static void spinTheWheel(){
+        //Explains the game
         System.out.println("You have chosen Spin the Wheel!");
         System.out.println("In this game, there will be a spinner consisting of 10 spaces, 5 red and 5 black.");
         
@@ -91,56 +96,60 @@ public class Games{
         int number = 0;
         
         while(true){
-        //Get input for color and number of user spin input
-        System.out.print("Choose a color[Black or Red]:");
-        color = spinGuessColor.nextLine();
-        System.out.print("Choose a number[1-5]:");
+            //Get input for color and number of user spin input
+            System.out.print("Choose a color[Black or Red]:");
+            color = spinGuessColor.nextLine();
+            System.out.print("Choose a number[1-5]:");
         
-        while (!spinGuessNumber.hasNextInt()){
-            spinGuessNumber.next();
-            System.out.print("You have entered invalid input. Must enter a number between 1 and 5.");
-        }
-        number = spinGuessNumber.nextInt();
+                //Bounding of input to ensure correct input. color will accept any string input, while number will only accept an integer
+                while (!spinGuessNumber.hasNextInt()){
+                spinGuessNumber.next();
+                System.out.print("You have entered invalid input. Must enter a number between 1 and 5.");
+                }
+            number = spinGuessNumber.nextInt();
         
-        if((color.equals("black") || color.equals("Black") || color.equals("red") || color.equals("Red") ) && (number >= 1 && number <= 5)){
-            break;
-        }
-        else{
-            System.out.println("You entered invalid input. Try again.");
-        }
-        }
-        
-        
-        //Determines color that spinner lands on, declaring both capitalizations, and generating a number between 1-5
-        if(randomColor == 0){
-            random = (randomGen.nextInt(4) + 1);
-            System.out.println("The spinner landed on Red "+ random );
-            color1 = "red";
-            color2 = "Red";
+            //If the string and number are acceptable input, then the program executes
+            if((color.equals("black") || color.equals("Black") || color.equals("red") || color.equals("Red") ) && (number >= 1 && number <= 5)){
+                break;
+            }
+            //Otherwise, program will loop back around to reprompt for new input
+            else{
+                System.out.println("You entered invalid input. Try again.");
+            }
         }
         
-        //Determines color that spinner lands on, declaring both capitalizations, and generating a number between 1-5
-        if(randomColor == 1){
-            random = (randomGen.nextInt(4) + 1);
-            System.out.println("The spinner landed on Black " + random);
-            color1 = "black";
-            color2 = "Black";
-        }
+            //Determines color that spinner lands on, declaring both capitalizations, and generating a number between 1-5
+            if(randomColor == 0){
+                random = (randomGen.nextInt(4) + 1);
+                System.out.println("The spinner landed on Red "+ random );
+                color1 = "red";
+                color2 = "Red";
+            }
         
-        //Checks if input matches what the spinner spun, and prints out the corresponding message
-        if(((color.equals(color1)) || color.equals(color2)) && number == random){
-            System.out.println("You spun " + color + " " + number);
-            System.out.println("Your guess matched the spin! Your prize is the self satisfaction that comes with winning!");
-        }
-        else{
-            System.out.println("You spun " + color + " " + number);
-            System.out.println("Your spin did not match. Sorry, Loser.");
-        }
+            //Determines color that spinner lands on, declaring both capitalizations, and generating a number between 1-5
+            if(randomColor == 1){
+                random = (randomGen.nextInt(4) + 1);
+                System.out.println("The spinner landed on Black " + random);
+                color1 = "black";
+                color2 = "Black";
+            }
+        
+            //Checks if input matches what the spinner spun, and prints out the corresponding message
+            if(((color.equals(color1)) || color.equals(color2)) && number == random){
+                System.out.println("You spun " + color + " " + number);
+                System.out.println("Your guess matched the spin! Your prize is the self satisfaction that comes with winning!");
+            }
+            else{
+                System.out.println("You spun " + color + " " + number);
+                System.out.println("Your spin did not match. Sorry, Loser.");
+            }
     }//End of spinTheWheel Method
     
     
     public static String scrambler(){
+        //Explanation of game
         System.out.println("You have chosen Scrambler!");
+        System.out.println("In this game, the user will input a string and a scrambled version of the word will be returned");
         Scanner scrambleWord = new Scanner(System.in);
         
         //Get the user to input a word to be scrambled
