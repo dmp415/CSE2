@@ -20,9 +20,9 @@ public class CSE2Linear{
                 int inter = 0;
 
                 //First have the user input 15 integers between 0 and 100, inclusive            
-                System.out.print("Please enter 15 integers between [0-100]:");
+                System.out.print("Please enter 15 integers between [0-100], in increasing order:");
                 
-                //Controls the number of inputs as well as making sure they are all ints as well as being between 0 and 100
+                //Controls the number of inputs as well as making sure they are all ints as well as being between 0 and 100, in increasing order
                 while(i < totalInput){
                     while (!myScanner.hasNextInt()){
                     myScanner.next();
@@ -36,6 +36,12 @@ public class CSE2Linear{
                     //Provided they are acceptable integers, they are then stored in the array
                     else{
                         grades[i] = temp;
+                        //if the integers are not in increasing order, we print an error message and make sure we stay on the same position to input the data
+                        if(i > 0 && temp < grades[i-1]){
+                            System.out.println("The integers must be in increasing order.");
+                            i--;
+                            
+                        }
                         i++;
                     }
                     
@@ -47,13 +53,6 @@ public class CSE2Linear{
                 }
                 System.out.println("");
                 
-                //Sorts the user input array using the handy dandy arrays.sort function, making life easy, and then prints it out
-                System.out.println("Sort: ");
-                Arrays.sort(grades); //sorts the array
-                for(i = 0; i < grades.length; i++){
-                    System.out.print(grades[i] + " ");
-                }
-                System.out.println("");
                 
                 //We will now search the array to find a user input target value, restricting the search to only integer values
                 System.out.print("Please enter an integer to be searched for [0 - 100]:");
@@ -62,19 +61,32 @@ public class CSE2Linear{
                     System.out.println("You have entered invalid input. Please enter an integer.");
                     }
                     int target1 = myScanner.nextInt();
-                
-                //Once an acceptable search value has been entered, we check the array to see if any of the members match the target    
-                for(i = 0; i < grades.length; i++){
-                    //If they do match, we say it was found and how long it took, and break the loop
-                    if(grades[i] == target1){
-                        System.out.println(target1 + " was found after " + i + " iterations.");
-                        break;
-                    } 
-                    //If they do not match by the end of the search, then it will report that the number was not found after searching the whole array
-                    else if(i == 14){
-                        System.out.println(target1 + " was not found after " + (i+1) + " iterations.");
-                    }
+                    
+                    System.out.println("You entered " + target1);
+                    
+                int low = 0;
+                int high = grades.length - 1;
+                int mid = 0;
+                int counter = 0;
+        
+                while (low <= high){
+                    mid = (low + high) / 2;
+                        if (grades[mid] > target1) {
+                            high = mid - 1;
+                        }
+                        else if (grades[mid] < target1) {
+                        low = mid + 1;
+                        }
+                    counter++;    
+                }    
+                    
+                if (target1 == grades[mid]){
+                    System.out.print(target1 + " was found after " + counter + " iterations." );
                 }
+                else{
+                    System.out.println(target1 + " was not found after " + counter + " iterations." );
+                }    
+                    
                 
                 //Nifty little loop to scramble up the array before searching again
                 for (i=0; i<grades.length; i++){
@@ -98,8 +110,10 @@ public class CSE2Linear{
                     System.out.println("You have entered invalid input. Please enter an integer.");
                     }
                     int target2 = myScanner.nextInt();
+                    
+                    System.out.println("You entered " + target2);
                 
-                //We now do the same as above, and check the now scrambled array for the target integer    
+                //We check the now scrambled array for the target integer    
                 for(i = 0; i < grades.length; i++){
                     if(grades[i] == target2){
                         System.out.println(target2 + " was found after " + i + " iterations.");
