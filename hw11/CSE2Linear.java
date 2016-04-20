@@ -20,7 +20,7 @@ public class CSE2Linear{
                 int inter = 0;
 
                 //First have the user input 15 integers between 0 and 100, inclusive            
-                System.out.print("Please enter 15 integers between [0-100], each equal to or larger than the last:");
+                System.out.print("Please enter 15 integers between [0-100]:");
                 
                 //Controls the number of inputs as well as making sure they are all ints as well as being between 0 and 100
                 while(i < totalInput){
